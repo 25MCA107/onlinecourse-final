@@ -1,0 +1,81 @@
+[
+  {
+    "model": "onlinecourse.course",
+    "pk": 1,
+    "fields": {
+      "name": "Python Basics",
+      "image": "",
+      "description": "Learn Python from scratch",
+      "pub_date": "2024-01-01",
+      "total_enrollment": 0
+    }
+  },
+  {
+    "model": "onlinecourse.lesson",
+    "pk": 1,
+    "fields": {
+      "title": "Introduction to Python",
+      "order": 1,
+      "course": 1,
+      "content": "Python is a high-level programming language known for its simplicity and readability."
+    }
+  },
+  {
+    "model": "onlinecourse.lesson",
+    "pk": 2,
+    "fields": {
+      "title": "Variables and Data Types",
+      "order": 2,
+      "course": 1,
+      "content": "Variables store data values. Python has types like int, str, float, and bool."
+    }
+  },
+  {
+    "model": "onlinecourse.question",
+    "pk": 1,
+    "fields": {
+      "course": 1,
+      "content": "Which of the following is a correct Python data type?",
+      "grade": 50
+    }
+  },
+  {
+    "model": "onlinecourse.question",
+    "pk": 2,
+    "fields": {
+      "course": 1,
+      "content": "What keyword is used to define a function in Python?",
+      "grade": 50
+    }
+  },
+  {
+    "model": "onlinecourse.choice",
+    "pk": 1,
+    "fields": {"question": 1, "content": "Integer", "is_correct": true}
+  },
+  {
+    "model": "onlinecourse.choice",
+    "pk": 2,
+    "fields": {"question": 1, "content": "Number", "is_correct": false}
+  },
+  {
+    "model": "onlinecourse.choice",
+    "pk": 3,
+    "fields": {"question": 1, "content": "String", "is_correct": true}
+  },
+  {
+    "model": "onlinecourse.choice",
+    "pk": 4,
+    "fields": {"question": 2, "content": "def", "is_correct": true}
+  },
+  {
+    "model": "onlinecourse.choice",
+    "pk": 5,
+    "fields": {"question": 2, "content": "function", "is_correct": false}
+  },
+  {
+    "model": "onlinecourse.choice",
+    "pk": 6,
+    "fields": {"question": 2, "content": "func", "is_correct": false}
+  }
+]

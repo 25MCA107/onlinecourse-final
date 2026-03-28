@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ course.name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+
+    <h1 class="mb-2">{{ course.name }}</h1>
+    <p class="text-muted">{{ course.description }}</p>
+
+    {% if course.image %}
+    <img src="{{ course.image.url }}" class="img-fluid mb-4 rounded" alt="{{ course.name }}" style="max-height:300px;">
+    {% endif %}
+
+    <h3 class="mt-4">Lessons</h3>
+    <div class="list-group mb-4">
+        {% for lesson in course.lesson_set.all %}
+        <div class="list-group-item">
+            <h5 class="mb-1">Lesson {{ lesson.order }}: {{ lesson.title }}</h5>
+            <p class="mb-1">{{ lesson.content }}</p>
+        </div>
+        {% empty %}
+        <p>No lessons available for this course.</p>
+        {% endfor %}
+    </div>
+
+    {% if user.is_authenticated %}
+        <h3>Exam</h3>
+        <form action="{% url 'onlinecourse:submit' course.id %}" method="post">
+            {% csrf_token %}
+            {% for question in course.question_set.all %}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <strong>Q{{ forloop.counter }}. {{ question.content }}</strong> ({{ question.grade }} pts)
+                </div>
+                <div class="card-body">
+                    {% for choice in question.choice_set.all %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox"
+                               name="choice{{ question.id }}"
+                               value="{{ choice.id }}"
+                               id="choice{{ choice.id }}">
+                        <label class="form-check-label" for="choice{{ choice.id }}">
+                            {{ choice.content }}
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-success mb-4">Submit Exam</button>
+        </form>
+    {% else %}
+        <a href="{% url 'onlinecourse:enroll' course.id %}" class="btn btn-primary">Enroll</a>
+    {% endif %}
+
+</div>
+</body>
+</html>
